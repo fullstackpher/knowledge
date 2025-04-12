@@ -13,7 +13,7 @@ public class WebDriverManager {
 
     public static WebDriver getInstance() {
         if (webDriver == null) {
-            System.setProperty("webdriver.chrome.driver", "E:\\projects\\knowledge\\driver\\chromedriver.exe");
+            System.setProperty("webdriver.chrome.driver", "D:\\devtools\\driver\\chromedriver.exe");
             ChromeOptions options = new ChromeOptions();
             options.addArguments("--headless");
             webDriver = new ChromeDriver(options);
