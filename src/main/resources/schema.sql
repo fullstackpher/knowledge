@@ -165,27 +165,81 @@ CREATE TABLE lin_user_group
   COLLATE = utf8mb4_general_ci;
 
 -- ----------------------------
--- 图书表
+-- 课程表
 -- ----------------------------
-DROP TABLE IF EXISTS book;
-CREATE TABLE book
+DROP TABLE IF EXISTS course;
+CREATE TABLE course
 (
-    id          int(11)     NOT NULL AUTO_INCREMENT,
+    id          bigint(20)     NOT NULL AUTO_INCREMENT,
     title       varchar(50) NOT NULL,
-    author      varchar(30)          DEFAULT NULL,
-    summary     varchar(1000)        DEFAULT NULL,
-    image       varchar(100)         DEFAULT NULL,
+    description     varchar(1000)        DEFAULT NULL COMMENT '课程描述',
+    cover_image       varchar(100)         DEFAULT NULL COMMENT '封面图片',
+    price       decimal(10, 2)          DEFAULT NULL COMMENT '课程价格，单位元',
+    category    varchar(50) NOT NULL COMMENT '课程分类',
+    tag        varchar(100) NOT NULL COMMENT '课程标签',
     create_time datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     update_time datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3),
-    delete_time datetime(3)          DEFAULT NULL,
-    is_deleted  tinyint(1)           DEFAULT 0,
     PRIMARY KEY (id)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_general_ci;
 
-INSERT INTO book(`title`, `author`, `summary`, `image`) VALUES ('深入理解计算机系统', 'Randal E.Bryant', '从程序员的视角，看计算机系统！\n本书适用于那些想要写出更快、更可靠程序的程序员。通过掌握程序是如何映射到系统上，以及程序是如何执行的，读者能够更好的理解程序的行为为什么是这样的，以及效率低下是如何造成的。', 'https://img3.doubanio.com/lpic/s1470003.jpg');
-INSERT INTO book(`title`, `author`, `summary`, `image`) VALUES ('C程序设计语言', '（美）Brian W. Kernighan', '在计算机发展的历史上，没有哪一种程序设计语言像C语言这样应用广泛。本书原著即为C语言的设计者之一Dennis M.Ritchie和著名计算机科学家Brian W.Kernighan合著的一本介绍C语言的权威经典著作。', 'https://img3.doubanio.com/lpic/s1106934.jpg');
+INSERT INTO course(`title`,`description`, `category`,`tag`, `price`, `cover_image`,`create_time`) VALUES ('（14354期）暴利项目，每天被动收益1500+，长期管道收益！0成本自己做老板！', '项目介绍：我一直在思索互联网的无限潜力，想办法能不能有一种方式能够让我能有被动收益，哪怕我一个月不工作，出门旅游一个月，我照样可以赚钱。从最初的每月只能赚两三万，到三四个月后，每月的收入已经稳定在七八万，并且还在不断增长。这种模式真正实现了被动收入：我们不再需要亲自派单，客服人员每天都在为我们创造收益！自己就可以做老板。','中创网VIP项目', '虚拟项目','9.9', 'https://vip.168sou.com/wp-content/uploads/2025/04/20250411121002-67f9069a08f0d.jpg','2025-04-11');
+INSERT INTO course(`title`,`description`, `category`,`tag`, `price`, `cover_image`,`create_time`) VALUES ('（14355期）全网低估的短视频玩法，经典IP+语录，轻松日赚1000+', '项目介绍：为什么我推荐大家做这个项目？很简单，因为像《樱桃小丸子》这种经典动漫，不管是小孩子还是女生，真的都爱看。而且我们如果把它提取出来，做成经典语录的形式，不仅能勾起大家的童年回忆，连很多男生也会被吸引进来。现在大家都喜欢那种“心灵鸡汤”人生哲理 “式的短视频，尤其是配上熟悉的画面，既有情怀又有共鸣。这类内容特别容易出爆款，流量也非常稳定。','中创网VIP项目', '短视频运营','9.9', 'https://vip.168sou.com/wp-content/uploads/2025/04/20250411120959-67f90697bb85e.jpg','2025-04-11');
+
+-- ----------------------------
+-- 课程详细表
+-- ----------------------------
+DROP TABLE IF EXISTS course_detail;
+CREATE TABLE course_detail
+(
+    id          bigint(20)     NOT NULL AUTO_INCREMENT,
+    course_id   bigint(20)     NOT NULL COMMENT '课程ID',
+    content     text        NOT NULL COMMENT '课程详细内容',
+    hidden_content text        DEFAULT NULL COMMENT '隐藏内容，付费会员才能查看',
+    create_time datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    update_time datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3),
+    PRIMARY KEY (id),
+    FOREIGN KEY (course_id) REFERENCES course (id) ON DELETE CASCADE
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4
+  COLLATE = utf8mb4_general_ci;
+
+-- ----------------------------
+-- 订单表
+-- ----------------------------
+DROP TABLE IF EXISTS `order`;
+CREATE TABLE `order`
+(
+    id          bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+    user_id     int(10) unsigned NOT NULL COMMENT '用户ID',
+    course_id   bigint(20) unsigned NOT NULL COMMENT '课程ID',
+    status      varchar(20)      NOT NULL COMMENT '订单状态（未支付、已支付等）',
+    created_at  datetime(3)      NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    PRIMARY KEY (id),
+    KEY user_id (user_id),
+    KEY course_id (course_id)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4
+  COLLATE = utf8mb4_general_ci;
+
+-- ----------------------------
+-- 推广记录表
+-- ----------------------------
+DROP TABLE IF EXISTS promotion_record;
+CREATE TABLE promotion_record
+(
+    id          bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+    user_id     int(10) unsigned NOT NULL COMMENT '推广用户ID',
+    referrer_id int(10) unsigned NOT NULL COMMENT '被推广用户ID',
+    commission  decimal(10, 2)   NOT NULL COMMENT '佣金金额',
+    created_at  datetime(3)      NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    PRIMARY KEY (id),
+    KEY user_id (user_id),
+    KEY referrer_id (referrer_id)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4
+  COLLATE = utf8mb4_general_ci;
 
 -- ----------------------------
 -- 插入超级管理员
