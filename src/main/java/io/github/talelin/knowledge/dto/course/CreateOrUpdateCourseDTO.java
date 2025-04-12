@@ -9,6 +9,7 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 public class CreateOrUpdateCourseDTO {
+    private Long id;
     private String title;
     private String description;
     private String coverImage;

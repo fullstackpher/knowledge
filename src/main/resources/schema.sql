@@ -174,7 +174,7 @@ CREATE TABLE course
     title       varchar(50) NOT NULL,
     description     varchar(1000)        DEFAULT NULL COMMENT '课程描述',
     cover_image       varchar(100)         DEFAULT NULL COMMENT '封面图片',
-    price       decimal(10, 2)          DEFAULT NULL COMMENT '课程价格，单位元',
+    price       decimal(10, 2)          DEFAULT 9.9 COMMENT '课程价格，单位元',
     category    varchar(50) NOT NULL COMMENT '课程分类',
     tag        varchar(100) NOT NULL COMMENT '课程标签',
     create_time datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
@@ -183,9 +183,6 @@ CREATE TABLE course
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_general_ci;
-
-INSERT INTO course(`title`,`description`, `category`,`tag`, `price`, `cover_image`,`create_time`) VALUES ('（14354期）暴利项目，每天被动收益1500+，长期管道收益！0成本自己做老板！', '项目介绍：我一直在思索互联网的无限潜力，想办法能不能有一种方式能够让我能有被动收益，哪怕我一个月不工作，出门旅游一个月，我照样可以赚钱。从最初的每月只能赚两三万，到三四个月后，每月的收入已经稳定在七八万，并且还在不断增长。这种模式真正实现了被动收入：我们不再需要亲自派单，客服人员每天都在为我们创造收益！自己就可以做老板。','中创网VIP项目', '虚拟项目','9.9', 'https://vip.168sou.com/wp-content/uploads/2025/04/20250411121002-67f9069a08f0d.jpg','2025-04-11');
-INSERT INTO course(`title`,`description`, `category`,`tag`, `price`, `cover_image`,`create_time`) VALUES ('（14355期）全网低估的短视频玩法，经典IP+语录，轻松日赚1000+', '项目介绍：为什么我推荐大家做这个项目？很简单，因为像《樱桃小丸子》这种经典动漫，不管是小孩子还是女生，真的都爱看。而且我们如果把它提取出来，做成经典语录的形式，不仅能勾起大家的童年回忆，连很多男生也会被吸引进来。现在大家都喜欢那种“心灵鸡汤”人生哲理 “式的短视频，尤其是配上熟悉的画面，既有情怀又有共鸣。这类内容特别容易出爆款，流量也非常稳定。','中创网VIP项目', '短视频运营','9.9', 'https://vip.168sou.com/wp-content/uploads/2025/04/20250411120959-67f90697bb85e.jpg','2025-04-11');
 
 -- ----------------------------
 -- 课程详细表

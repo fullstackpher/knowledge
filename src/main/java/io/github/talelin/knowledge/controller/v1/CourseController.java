@@ -2,6 +2,7 @@ package io.github.talelin.knowledge.controller.v1;
 
 import io.github.talelin.knowledge.dto.course.CreateOrUpdateCourseDTO;
 import io.github.talelin.knowledge.model.CourseDO;
+import io.github.talelin.knowledge.model.CourseDetailDO;
 import io.github.talelin.knowledge.service.CourseService;
 import io.github.talelin.knowledge.vo.CreatedVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,5 +27,10 @@ public class CourseController {
     @GetMapping("/list")
     public List<CourseDO> getCourseList() {
         return courseService.findAll();
+    }
+
+    @GetMapping("/details")
+    public List<CourseDetailDO> getCourseDetailList() {
+        return courseService.findDetailAll();
     }
 }

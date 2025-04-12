@@ -27,6 +27,7 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public Boolean createCourse(CreateOrUpdateCourseDTO validator) {
         CourseDO courseDO = new CourseDO();
+        courseDO.setId(validator.getId());
         courseDO.setTitle(validator.getTitle());
         courseDO.setDescription(validator.getDescription());
         courseDO.setPrice(validator.getPrice());
@@ -39,6 +40,7 @@ public class CourseServiceImpl implements CourseService {
         if (courseCreated) {
             CreateOrUpdateCourseDetailDTO detailDTO = validator.getCourseDetail();
             CourseDetailDO courseDetailDO = new CourseDetailDO();
+            courseDetailDO.setId(courseDO.getId());
             courseDetailDO.setCourseId(courseDO.getId());
             courseDetailDO.setContent(detailDTO.getContent());
             courseDetailDO.setHiddenContent(detailDTO.getHiddenContent());
@@ -51,5 +53,10 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public List<CourseDO> findAll() {
         return courseMapper.selectList(null);
+    }
+
+    @Override
+    public List<CourseDetailDO> findDetailAll() {
+        return courseDetailMapper.selectList(null);
     }
 }
