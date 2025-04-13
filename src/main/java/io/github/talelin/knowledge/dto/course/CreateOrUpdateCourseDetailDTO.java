@@ -8,7 +8,6 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 public class CreateOrUpdateCourseDetailDTO {
-    private Integer courseId;
     private String content;
     private String hiddenContent;
     private Date createTime;

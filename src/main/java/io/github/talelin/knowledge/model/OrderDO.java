@@ -7,24 +7,18 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Date;
 
 @Data
-@TableName("course")
-public class CourseDO implements Serializable {
-    private static final long serialVersionUID = -5585159202942077159L;
+@TableName("order")
+public class OrderDO implements Serializable {
+    private static final long serialVersionUID = -6158485976609186776L;
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
-    private String title;
-    private String description;
-    private String category;
-    private String tag;
-    private BigDecimal price;
-    private String coverImage;
-    @JsonIgnore
+    private Integer userId;
+    private Long courseId;
+    private String status;
     private Date createTime;
-
     @JsonIgnore
     private Date updateTime;
 }

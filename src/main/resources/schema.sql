@@ -212,7 +212,8 @@ CREATE TABLE `order`
     user_id     int(10) unsigned NOT NULL COMMENT '用户ID',
     course_id   bigint(20) unsigned NOT NULL COMMENT '课程ID',
     status      varchar(20)      NOT NULL COMMENT '订单状态（未支付、已支付等）',
-    created_at  datetime(3)      NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    create_time datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3) COMMENT '创建时间',
+    update_time datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3) COMMENT '更新时间',
     PRIMARY KEY (id),
     KEY user_id (user_id),
     KEY course_id (course_id)
@@ -230,7 +231,8 @@ CREATE TABLE promotion_record
     user_id     int(10) unsigned NOT NULL COMMENT '推广用户ID',
     referrer_id int(10) unsigned NOT NULL COMMENT '被推广用户ID',
     commission  decimal(10, 2)   NOT NULL COMMENT '佣金金额',
-    created_at  datetime(3)      NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    create_time datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3) COMMENT '创建时间',
+    update_time datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3) COMMENT '更新时间',
     PRIMARY KEY (id),
     KEY user_id (user_id),
     KEY referrer_id (referrer_id)

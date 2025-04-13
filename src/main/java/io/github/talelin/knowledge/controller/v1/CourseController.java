@@ -33,4 +33,9 @@ public class CourseController {
     public List<CourseDetailDO> getCourseDetailList() {
         return courseService.findDetailAll();
     }
+
+    @GetMapping("/detail/{id}")
+    public CourseDetailDO getCourseDetail(@PathVariable Integer id) {
+        return courseService.findDetailById(id);
+    }
 }
